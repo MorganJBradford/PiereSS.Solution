@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pierre.Models;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using System.Linq;
 
 namespace Pierre.Controllers
-{
+{ 
+  [Authorize]
   public class TreatsController : Controller
   {
 
@@ -22,17 +21,10 @@ namespace Pierre.Controllers
       _db = db;
     }
 
-    // public ActionResult Index()
-    // {
-    //   return View(_db.Treats.ToList());
-    // }
-
-    public async Task<ActionResult> Index()
+    [AllowAnonymous]
+    public ActionResult Index()
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      return View(userTreats);
+      return View(_db.Treats.ToList());
     }
 
     public ActionResult Create()
@@ -42,11 +34,8 @@ namespace Pierre.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Treat treat, int FlavorId)
+    public ActionResult Create(Treat treat, int FlavorId)
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      treat.User = currentUser;
       _db.Treats.Add(treat);
       _db.SaveChanges();
       if (FlavorId != 0)
@@ -57,6 +46,7 @@ namespace Pierre.Controllers
       return RedirectToAction("Index");
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treats
