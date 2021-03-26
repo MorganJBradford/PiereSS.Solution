@@ -71,7 +71,7 @@ namespace Pierre.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddFlavor(Flavor flavor, int TreatId)
+    public ActionResult AddTreat(Flavor flavor, int TreatId)
     {
       if (TreatId != 0)
       {
@@ -79,6 +79,12 @@ namespace Pierre.Controllers
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+
+    public ActionResult Delete(int id)
+    {
+      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
     }
   }
 }
