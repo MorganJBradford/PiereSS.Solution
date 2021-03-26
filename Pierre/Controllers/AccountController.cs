@@ -21,8 +21,15 @@ namespace Pierre.Controllers
       _db = db;
     }
 
-    public ActionResult Index()
+    public async Task<ActionResult> Index()
     {
+      if (User.Identity.IsAuthenticated)
+      {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      ViewBag.userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      ViewBag.userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      }
       return View();
     }
 
