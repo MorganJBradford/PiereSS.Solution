@@ -28,5 +28,13 @@
 
 <button>@Html.ActionLink("See all flavors", "Index", "Flavors")</button>
 <button>@Html.ActionLink("See all treats", "Index", "Treats")</button>
+@if (User.Identity.IsAuthenticated)
+{
+<button>@Html.ActionLink("My treats", "UserTreats", "Account")</button>
+<button>@Html.ActionLink("Log out", "Logout", "Account")</button>
+}
+else
+{
 <button>@Html.ActionLink("Login", "Login", "Account")</button>
+}
 <button>@Html.ActionLink("Create an account", "Index", "Account")</button>
