@@ -1,5 +1,5 @@
 ## <div align="center">Pierre's Dank Delicacies</div>
-#### <div align="center"> *A website created for tracking engineers and machinery* </div> 
+#### <div align="center"> *A website created for tracking treats and flavors available at Pierre's Bakery* </div> 
 ***<p align="right">Morgan Bradford***</p>   
 <p align="center">
 <br>
@@ -10,7 +10,7 @@
 
 ___
 ## 🚩 *Description*:    
-### *This website allows users to track their engineers and machines, and establish relationships between the two based on licensure.*
+### *This website allows users to view treats and flavors in Pierre's shop. User's may register for an account if they wish to edit, create, or delete flavors or treats.*
 
 
 ## 🔧 *Setup/Installation instructions:*
