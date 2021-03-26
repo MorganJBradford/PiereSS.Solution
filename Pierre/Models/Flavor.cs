@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PierreSS.Models
+namespace Pierre.Models
 {
   public class Flavor
   {

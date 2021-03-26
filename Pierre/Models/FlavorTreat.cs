@@ -1,4 +1,4 @@
-namespace PierreSS.Models
+namespace Pierre.Models
 {
   public class FlavorTreat
   {

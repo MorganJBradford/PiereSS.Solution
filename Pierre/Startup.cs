@@ -1,12 +1,13 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PierreSS.Models;
+using Pierre.Models;
 
-namespace PierreSS
+namespace Pierre
 {
   public class Startup
   {
@@ -25,7 +26,7 @@ namespace PierreSS
       services.AddMvc();
 
       services.AddEntityFrameworkMySql()
-        .AddDbContext<PierreSSContext>(options => options
+        .AddDbContext<PierreContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
     }
 
