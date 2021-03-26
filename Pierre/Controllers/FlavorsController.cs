@@ -34,6 +34,7 @@ namespace Pierre.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
     public ActionResult Details(int id)
     {
       Flavor thisFlavor = _db.Flavors
@@ -41,6 +42,13 @@ namespace Pierre.Controllers
         .ThenInclude(join => join.Treat)
         .FirstOrDefault(Flavor => Flavor.FlavorId == id);
       return View(thisFlavor);
+    }
+
+    public ActionResult Edit(int id)
+    {
+      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      return View(thisTreat);
     }
   }
 }
