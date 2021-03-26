@@ -1,7 +1,16 @@
+using System.Collections.Generic;
+
 namespace PierreSS.Models
 {
   public class Flavor
   {
-    // properties, constructors, methods, etc. go here
+    public Flavor()
+    {
+      JoinEntities = new HashSet<FlavorTreat>();
+    }
+
+    public int FlavorId { get; set; }
+    public string Name { get; set; }
+    public virtual ICollection<FlavorTreat> JoinEntities { get; set; }
   }
 }
