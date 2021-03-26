@@ -5,6 +5,12 @@ namespace PierreSS.Controllers
     private readonly PierreSSContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    
+
+    public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, PierreSSContext db)
+    {
+      _userManager = userManager;
+      _signInManager = signInManager;
+      _db = db;
+    }
   }
 }
