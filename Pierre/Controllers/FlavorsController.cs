@@ -1,4 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Pierre.Models;
+using System;
+using System.Linq;
 
 namespace Pierre.Controllers
 {
@@ -29,7 +34,7 @@ namespace Pierre.Controllers
       _db.SaveChanges();
       if (TreatId != 0)
       {
-        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavolId = flavor.FlavorId });
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -48,7 +53,7 @@ namespace Pierre.Controllers
     {
       Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
-      return View(thisTreat);
+      return View(thisFlavor);
     }
 
     [HttpPost]
