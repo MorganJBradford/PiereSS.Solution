@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Pierre.Models;
 using Pierre.ViewModels;
@@ -22,6 +24,14 @@ namespace Pierre.Controllers
     public ActionResult Index()
     {
       return View();
+    }
+
+    public async Task<ActionResult> UserTreats()
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      return View(userTreats);
     }
 
     public ActionResult Register()
