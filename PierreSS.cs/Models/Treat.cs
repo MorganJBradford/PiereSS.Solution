@@ -1,6 +1,6 @@
-namespace ProjectName
+namespace PierreSS.Models
 {
-  public class ClassName
+  public class Treat
   {
     // properties, constructors, methods, etc. go here
   }
