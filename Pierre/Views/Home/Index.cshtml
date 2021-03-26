@@ -1,8 +1,31 @@
 @{
   Layout = "_Layout";
 }
-
 <h1>Welcome to Pierre's Dank Delicacies</h1>
+
+<h2>Flavors</h2>
+@if (ViewBag.allFlavors.Count == 0)
+{
+  <p>No flavors have been added to the system</p>
+}
+<ul>
+@foreach (var flavor in ViewBag.allFlavors)
+{
+  <li>@Html.ActionLink($"{flavor.Name}", "Details", new { id = flavor.FlavorId })</li>
+}
+</ul>
+<h2>Treats</h2>
+@if (ViewBag.allTreats.Count == 0)
+{
+  <p>No treats have been added to the system</p>
+}
+<ul>
+@foreach (var treat in ViewBag.allTreats)
+{
+  <li>@Html.ActionLink($"{treat.Name}", "Details", new { id = treat.TreatId })</li>
+}
+</ul>
+
 <button>@Html.ActionLink("See all flavors", "Index", "Flavors")</button>
 <button>@Html.ActionLink("See all treats", "Index", "Treats")</button>
 <button>@Html.ActionLink("Login", "Login", "Account")</button>
