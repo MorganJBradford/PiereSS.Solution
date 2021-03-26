@@ -31,10 +31,14 @@
 @if (User.Identity.IsAuthenticated)
 {
 <button>@Html.ActionLink("My treats", "UserTreats", "Account")</button>
-<button>@Html.ActionLink("Log out", "Logout", "Account")</button>
+@using (Html.BeginForm("LogOff", "Account"))
+{
+  <input type="submit" value="Log out"/>
+}
+<button>@Html.ActionLink("My account", "Index", "Account")</button>
 }
 else
 {
 <button>@Html.ActionLink("Login", "Login", "Account")</button>
-}
 <button>@Html.ActionLink("Create an account", "Index", "Account")</button>
+}
