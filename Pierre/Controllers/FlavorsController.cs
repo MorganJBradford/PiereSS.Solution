@@ -21,6 +21,7 @@ namespace Pierre.Controllers
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       return View();
     }
+
     [HttpPost]
     public ActionResult Create(Flavor flavor, int TreatId)
     {
@@ -32,6 +33,14 @@ namespace Pierre.Controllers
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
+    }
+    public ActionResult Details(int id)
+    {
+      Flavor thisFlavor = _db.Flavors
+        .Include(flavor => flavor.JoinEntities)
+        .ThenInclude(join => join.Treat)
+        .FirstOrDefault(Flavor => Flavor.FlavorId == id);
+      return View(thisFlavor);
     }
   }
 }
