@@ -6,6 +6,28 @@
 @if (User.Identity.IsAuthenticated)
 {
   <p>Hello, @User.Identity.Name!</p>
+  <h2>My flavors</h2>
+  @if (ViewBag.userFlavors.Count == 0)
+  {
+    <p>No flavors have been added to the system</p>
+  }
+  <ul>
+  @foreach (var flavor in ViewBag.userFlavors)
+  {
+    <li>@Html.ActionLink($"{flavor.Name}", "Details", "Flavors", new { id = flavor.FlavorId })</li>
+  }
+  </ul>
+  <h2>myTreats</h2>
+  @if (ViewBag.userTreats.Count == 0)
+  {
+    <p>No treats have been added to the system</p>
+  }
+  <ul>
+  @foreach (var treat in ViewBag.userTreats)
+  {
+    <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</li>
+  }
+  </ul>
   @using (Html.BeginForm("LogOff", "Account"))
   {
     <input type="submit" value="Log out"/>
