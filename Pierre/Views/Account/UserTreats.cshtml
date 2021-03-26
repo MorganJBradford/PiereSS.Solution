@@ -1,0 +1,23 @@
+@{
+  Layout = "_AccountLayout";
+}
+
+@using Pierre.Models;
+@model IEnumerable<Pierre.Models.Treat>
+
+<h1>Treats for @User.Identity.Name</h1>
+
+@if (Model.Any())
+{
+  <ul>
+    @foreach (Treat treat in Model)
+    {
+      <li>@Html.ActionLink($"{treat.Name}", "Details", "Treats", new { id = treat.TreatId })</li>
+    }
+  </ul>
+} 
+else
+{
+  <h3>No treats have been added yet!</h3>
+}
+<button>@Html.ActionLink("Add new treat", "Create", "Treats")</button>
