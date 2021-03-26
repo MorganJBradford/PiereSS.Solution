@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pierre.Models;
-using System;
 using System.Linq;
 
 namespace Pierre.Controllers
@@ -32,7 +31,8 @@ namespace Pierre.Controllers
     {
       _db.Flavors.Add(flavor);
       _db.SaveChanges();
-      if (TreatId != 0)
+      bool duplicate = _db.FlavorTreat.Any(x => x.TreatId == TreatId && x.FlavorId == flavor.FlavorId);
+      if (TreatId != 0 && !duplicate)
       {
         _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
@@ -59,7 +59,8 @@ namespace Pierre.Controllers
     [HttpPost]
     public ActionResult Edit(Flavor flavor, int TreatId)
     {
-      if (TreatId != 0)
+      bool duplicate = _db.FlavorTreat.Any(x => x.TreatId == TreatId && x.FlavorId == flavor.FlavorId);
+      if (TreatId != 0 && !duplicate)
       {
         _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
@@ -78,7 +79,8 @@ namespace Pierre.Controllers
     [HttpPost]
     public ActionResult AddTreat(Flavor flavor, int TreatId)
     {
-      if (TreatId != 0)
+      bool duplicate = _db.FlavorTreat.Any(x => x.TreatId == TreatId && x.FlavorId == flavor.FlavorId);
+      if (TreatId != 0 && !duplicate)
       {
       _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
       }
