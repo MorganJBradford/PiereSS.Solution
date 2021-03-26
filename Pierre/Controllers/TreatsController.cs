@@ -1,4 +1,9 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Pierre.Models;
+using System;
+using System.Linq;
 
 namespace Pierre.Controllers
 {
