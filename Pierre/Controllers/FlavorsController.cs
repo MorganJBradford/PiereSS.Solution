@@ -15,5 +15,11 @@ namespace Pierre.Controllers
     {
       return View(_db.Flavors.ToList());
     }
+
+    public ActionResult Create()
+    {
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      return View();
+    }
   }
 }
