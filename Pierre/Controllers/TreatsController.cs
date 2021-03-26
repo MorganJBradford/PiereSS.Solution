@@ -72,7 +72,7 @@ namespace Pierre.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddFlavor(Treat Treat, int FlavorId)
+    public ActionResult AddFlavor(Treat treat, int FlavorId)
     {
       if (FlavorId != 0)
       {

@@ -69,5 +69,16 @@ namespace Pierre.Controllers
       ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
       return View(thisFlavor);
     }
+
+    [HttpPost]
+    public ActionResult AddFlavor(Flavor flavor, int TreatId)
+    {
+      if (TreatId != 0)
+      {
+      _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+      }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
