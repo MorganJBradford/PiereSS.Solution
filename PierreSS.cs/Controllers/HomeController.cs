@@ -1,8 +1,13 @@
-namespace PierreSS.Controllers
+using Microsoft.AspNetCore.Mvc;
+
+namespace ToDoList.Controllers
 {
-    public class HomeController : Controller
+  public class HomeController : Controller
+  {
+    [HttpGet("/")]
+    public ActionResult Index()
     {
-
-
+      return View();
     }
+  }
 }
