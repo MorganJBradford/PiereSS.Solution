@@ -38,7 +38,8 @@ namespace Pierre.Controllers
     {
       _db.Treats.Add(treat);
       _db.SaveChanges();
-      if (FlavorId != 0)
+      bool duplicate = _db.FlavorTreat.Any(x => x.FlavorId == FlavorId && x.TreatId == treat.TreatId);
+      if (FlavorId != 0 && !duplicate)
       {
         _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
       }
@@ -66,7 +67,8 @@ namespace Pierre.Controllers
     [HttpPost]
     public ActionResult Edit(Treat treat, int FlavorId)
     {
-      if (FlavorId != 0)
+      bool duplicate = _db.FlavorTreat.Any(x => x.FlavorId == FlavorId && x.TreatId == treat.TreatId);
+      if (FlavorId != 0 && !duplicate)
       {
         _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
       }
@@ -85,7 +87,8 @@ namespace Pierre.Controllers
     [HttpPost]
     public ActionResult AddFlavor(Treat treat, int FlavorId)
     {
-      if (FlavorId != 0)
+      bool duplicate = _db.FlavorTreat.Any(x => x.FlavorId == FlavorId && x.TreatId == treat.TreatId);
+      if (FlavorId != 0 && !duplicate)
       {
       _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
       }
