@@ -11,5 +11,10 @@ namespace Pierre.Controllers
     {
       _db = db;
     }
+
+    public ActionResult Index()
+    {
+      return View(_db.Treats.ToList());
+    }
   }
 }
