@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Pierre.Models;
@@ -21,14 +22,29 @@ namespace Pierre.Controllers
       _db = db;
     }
 
-    public async Task<ActionResult> Index()
+    public async Task<ViewResult> Index(string sortOrder, string searchString)
     {
       if (User.Identity.IsAuthenticated)
       {
-        var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        var currentUser = await _userManager.FindByIdAsync(userId);
-        ViewBag.userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
-        ViewBag.userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+
+      var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
+      var userFlavors = _db.Flavors.Where(entry => entry.User.Id == currentUser.Id).ToList();
+
+      ViewBag.MakeSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+      var sortedTreats = from t in userTreats.Where(entry => entry.User.Id == currentUser.Id).ToList()
+        select t;
+      var sortedFlavors = from f in userFlavors.Where(entry => entry.User.Id == currentUser.Id).ToList()
+        select f;
+
+      if (!String.IsNullOrEmpty(searchString))
+      {
+        sortedTreats = sortedTreats.Where(m => m.Name.Contains(searchString));
+        sortedFlavors = sortedFlavors.Where(m => m.Name.Contains(searchString));
+      }
+        ViewBag.userTreats = sortedTreats.OrderBy(m => m.Name);
+        ViewBag.userFlavors = sortedFlavors.OrderBy(m => m.Name);
       }
       return View();
     }
